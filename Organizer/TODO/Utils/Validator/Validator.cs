@@ -17,7 +17,7 @@ namespace TODO.Utils.Validator
                 throw new ArgumentException($"{input} is not a valid name. Use only letters, numbers and underscore.");
             }
         }
-        public static void CannotBeNull(string input)
+        public static void CannotBeNullOrEmpty(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -35,33 +35,33 @@ namespace TODO.Utils.Validator
         {
             int score = 0;
 
-            
-            if (password.Length > 8)
+
+            if (password.Length > 6)
             {
                 score++;
             }
 
-            if (password.Length > 12)
+            if (password.Length > 10)
             {
                 score++;
             }
             // Make the regex expression check only ascii - 0-9
-            if (Regex.Match(password, @"/\d+/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(password, @"\d+", RegexOptions.ECMAScript).Success)
             {
                 score++;
             }
             //Check for containing both lower and upper case
-            if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success
-                && Regex.Match(password, @"/[A-Z/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(password, @"[a-z]", RegexOptions.ECMAScript).Success
+                && Regex.Match(password, @"[A-Z]", RegexOptions.ECMAScript).Success)
             {
                 score++;
             }
 
-            if (Regex.Match(password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(password, @".[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]", RegexOptions.ECMAScript).Success)
             {
                 score++;
             }
-            
+
             switch ((PasswordStrength)score)
             {
                 case PasswordStrength.Blank:
@@ -69,7 +69,7 @@ namespace TODO.Utils.Validator
                 case PasswordStrength.Weak:
                     {
                         throw new ArgumentException($"{(PasswordStrength)score} password is not allowed, please try again.");
-                        
+
                     }
                 case PasswordStrength.Medium:
                 case PasswordStrength.Strong:
@@ -79,7 +79,7 @@ namespace TODO.Utils.Validator
             }
 
         }
-        
+
         #endregion
     }
 }

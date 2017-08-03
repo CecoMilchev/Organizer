@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using TODO.Contracts;
 using TODO.Models;
 using TODO.Utils.GlobalConstants;
@@ -11,6 +9,7 @@ namespace TODO
     public class Task : ITask
     {
         private IUser author;
+
 
         public IUser Author
         {

@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TODO.Contracts;
 using TODO.Utils.GlobalConstants;
@@ -12,18 +10,24 @@ namespace TODO.Models
     {
         private string username;
         private string password;
+        private ICollection<INotebook> notebooks;
 
         public User(string username, string password)
         {
-            this.Username = Username;
+            this.Username = username;
             this.Password = password;
+            this.Notebooks = new List<INotebook>();
         }
 
-        public ICollection<INotebook> Notebook
+        public ICollection<INotebook> Notebooks
         {
             get
             {
-                throw new NotImplementedException();
+                return this.notebooks;
+            }
+            private set
+            {
+                this.notebooks = value;
             }
         }
 
@@ -49,7 +53,7 @@ namespace TODO.Models
             }
             private set
             {
-                Validator.CannotBeNull(value);
+                Validator.CannotBeNullOrEmpty(value);
                 Validator.CheckNameLength(value, Constants.MinUserLength);
                 Validator.CheckUserName(value);
 
@@ -57,14 +61,22 @@ namespace TODO.Models
             }
         }
 
-        public void AddNotebook()
+        public void AddNotebook(INotebook notebook)
         {
-            throw new NotImplementedException();
+            this.notebooks.Add(notebook);
         }
-
         public void DeleteNotebook()
         {
             throw new NotImplementedException();
+        }
+        public void Sort()
+        {
+
+        }
+        public string FormatUserInfoForDB()
+        {
+            return $"{this.Username} {this.Password}" + Environment.NewLine +
+                $"{string.Join("\n-----", this.Notebooks)}";  // for now 
         }
     }
 }

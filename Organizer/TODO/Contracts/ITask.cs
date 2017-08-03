@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using TODO.Models;
 
 namespace TODO.Contracts
@@ -15,5 +13,6 @@ namespace TODO.Contracts
         Priority Priority { get; }
         TaskType TaskType { get; }
 
+        //void Sort();
     }
 }
